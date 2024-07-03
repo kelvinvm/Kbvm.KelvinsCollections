@@ -26,6 +26,17 @@ namespace Kbvm.DrDemento.Repository
 			return result.Oid;
 		}
 
+		protected static async Task<int> CommandAsync(Func<UnitOfWork, XPObject> fnCommand)
+		{
+			using var uow = new UnitOfWork();
+			uow.BeginTransaction();
+
+			var result = fnCommand(uow);
+			await uow.CommitChangesAsync();
+
+			return result.Oid;
+		}
+
 		protected static async Task<T> QueryAsync<T>(Func<UnitOfWork, Task<T>> fnQuery)
 		{
 			using var uow = new UnitOfWork();

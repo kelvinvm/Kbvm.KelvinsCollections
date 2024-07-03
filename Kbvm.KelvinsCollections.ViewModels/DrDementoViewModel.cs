@@ -23,18 +23,23 @@ namespace Kbvm.KelvinsCollections.ViewModels
 		}
 
 		#region Observables
+		[NotifyCanExecuteChangedFor("SaveShowCommand")]
 		[ObservableProperty]
 		private int? _showNumber;
 
+		[NotifyCanExecuteChangedFor("SaveShowCommand")]
 		[ObservableProperty]
 		private string _title;
 
+		[NotifyCanExecuteChangedFor("SaveShowCommand")]
 		[ObservableProperty]
 		private string _description;
 
+		[NotifyCanExecuteChangedFor("SaveShowCommand")]
 		[ObservableProperty]
 		private DateTime _broadcastDate;
 
+		[NotifyCanExecuteChangedFor("SaveShowCommand")]
 		[ObservableProperty]
 		private string _playList;
 
@@ -44,12 +49,30 @@ namespace Kbvm.KelvinsCollections.ViewModels
 		[ObservableProperty]
 		private ShowDto? _selectedShow;
 
+		[ObservableProperty]
+		private int _selectedIndex;
+
+		[NotifyCanExecuteChangedFor("DeleteShowCommand")]
+		[ObservableProperty]
+		private int _oid;
+
+
 		#endregion
 
 		#region Commands
-		[RelayCommand] 
-		private void SaveShow()
+		[RelayCommand(CanExecute = "IsShowValid")] 
+		private async Task SaveShowAsync()
 		{
+			var showDto = LoadShow();
+			if (Oid <= 0)
+				await _handler.UpdateShowAsync(showDto);
+			else
+			{
+				showDto.Oid = await _handler.SaveShowAsync(showDto);
+				Shows.Add(showDto);
+			}
+
+			Clear();
 		}
 
 		[RelayCommand]
@@ -63,20 +86,27 @@ namespace Kbvm.KelvinsCollections.ViewModels
 			LoadShow(new ShowDto());
 		}
 
-		[RelayCommand]
-		private void Delete()
+		[RelayCommand(CanExecute = "IsShowLoaded")]
+		private async Task DeleteShowAsync()
 		{
+			await _handler.DeleteShowAsync(Oid);
+			Shows.Remove(Shows.First(s => s.Oid == Oid));
+			Clear();
 		}
 
 		[RelayCommand]
 		private async Task Load()
 		{
 			Shows = new ObservableCollection<ShowDto>(await _handler.LoadShowsAsync());
-
-			Title = "This is a title.";
-			ShowNumber = 2415;
-			Description = "Call me Ishmael. Or don't. I don't really care.";
 		}
+		#endregion
+
+		#region CanExecute
+		private bool IsShowValid()
+			=> ShowNumber > 1969 && !string.IsNullOrWhiteSpace(Title) && !string.IsNullOrWhiteSpace(Description) && !string.IsNullOrWhiteSpace(PlayList);
+
+		private bool IsShowLoaded()
+			=> Oid > 0;
 		#endregion
 
 		partial void OnSelectedShowChanged(ShowDto? value)
@@ -87,14 +117,30 @@ namespace Kbvm.KelvinsCollections.ViewModels
 			LoadShow(value);
 		}
 
-
 		private void LoadShow(ShowDto show)
 		{
 			ShowNumber = show.ShowNumber == 0 ? null : show.ShowNumber;
 			Title = show.Title;
 			Description = show.Description;
 			BroadcastDate = show.BroadcastDate == DateTime.MinValue ? DateTime.Now : show.BroadcastDate;
-			PlayList = String.Join("\r\n", show.Tracks.Select(t => $"{t.Name} - {t.Artist}"));
+			PlayList = String.Join("\r\n", show.Tracks.Select(t => $"{t.Name} - {t.Artist}"));  // What do I do with the OID here?
+			SelectedShow = null;
+			SelectedIndex = -1;
+			Oid = show.Oid;
+		}
+
+		private ShowDto LoadShow()
+		{
+			var showDto = new ShowDto();
+
+			showDto.Oid = Oid;
+			showDto.ShowNumber = ShowNumber ?? 0;
+			showDto.Title = Title;
+			showDto.Description = Description;
+			showDto.BroadcastDate = BroadcastDate;
+			showDto.Tracks = _handler.GetTracks(PlayList).ToList();
+
+			return showDto;
 		}
 	}
 

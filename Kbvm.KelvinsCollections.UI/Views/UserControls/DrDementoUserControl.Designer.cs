@@ -31,13 +31,13 @@
 			components = new System.ComponentModel.Container();
 			btnReports = new Button();
 			btnClear = new Button();
+			drDementoViewModelBindingSource = new BindingSource(components);
 			btnDelete = new Button();
 			btnBrowse = new Button();
 			txtFileName = new TextBox();
 			label2 = new Label();
 			lstShows = new ListBox();
 			showsBindingSource = new BindingSource(components);
-			drDementoViewModelBindingSource = new BindingSource(components);
 			label1 = new Label();
 			txtPlayList = new TextBox();
 			btnSave = new Button();
@@ -52,8 +52,9 @@
 			chkIgnoreDatabase = new CheckBox();
 			chkIgnoreMetadata = new CheckBox();
 			dlgOpenFile = new OpenFileDialog();
-			((System.ComponentModel.ISupportInitialize)showsBindingSource).BeginInit();
+			txtOid = new TextBox();
 			((System.ComponentModel.ISupportInitialize)drDementoViewModelBindingSource).BeginInit();
+			((System.ComponentModel.ISupportInitialize)showsBindingSource).BeginInit();
 			SuspendLayout();
 			// 
 			// btnReports
@@ -77,9 +78,14 @@
 			btnClear.Text = "Clear";
 			btnClear.UseVisualStyleBackColor = true;
 			// 
+			// drDementoViewModelBindingSource
+			// 
+			drDementoViewModelBindingSource.DataSource = typeof(ViewModels.DrDementoViewModel);
+			// 
 			// btnDelete
 			// 
 			btnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnDelete.DataBindings.Add(new Binding("Command", drDementoViewModelBindingSource, "DeleteShowCommand", true));
 			btnDelete.Location = new Point(368, 15);
 			btnDelete.Name = "btnDelete";
 			btnDelete.Size = new Size(75, 23);
@@ -116,6 +122,7 @@
 			// 
 			lstShows.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			lstShows.CausesValidation = false;
+			lstShows.DataBindings.Add(new Binding("SelectedIndex", drDementoViewModelBindingSource, "SelectedIndex", true));
 			lstShows.DataSource = showsBindingSource;
 			lstShows.DisplayMember = "ShowNumberTitle";
 			lstShows.FormattingEnabled = true;
@@ -131,10 +138,6 @@
 			// 
 			showsBindingSource.DataMember = "Shows";
 			showsBindingSource.DataSource = drDementoViewModelBindingSource;
-			// 
-			// drDementoViewModelBindingSource
-			// 
-			drDementoViewModelBindingSource.DataSource = typeof(ViewModels.DrDementoViewModel);
 			// 
 			// label1
 			// 
@@ -264,10 +267,21 @@
 			dlgOpenFile.FileName = "openFileDialog1";
 			dlgOpenFile.Filter = "FLAC|*.flac";
 			// 
+			// txtOid
+			// 
+			txtOid.DataBindings.Add(new Binding("Text", drDementoViewModelBindingSource, "Oid", true));
+			txtOid.Location = new Point(237, 226);
+			txtOid.Name = "txtOid";
+			txtOid.Size = new Size(56, 23);
+			txtOid.TabIndex = 80;
+			txtOid.Text = "-1";
+			txtOid.Visible = false;
+			// 
 			// DrDementoUserControl
 			// 
 			AutoScaleDimensions = new SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(txtOid);
 			Controls.Add(chkIgnoreMetadata);
 			Controls.Add(chkIgnoreDatabase);
 			Controls.Add(btnReports);
@@ -291,8 +305,8 @@
 			Name = "DrDementoUserControl";
 			Size = new Size(459, 780);
 			Load += DrDementoUserControl_Load;
-			((System.ComponentModel.ISupportInitialize)showsBindingSource).EndInit();
 			((System.ComponentModel.ISupportInitialize)drDementoViewModelBindingSource).EndInit();
+			((System.ComponentModel.ISupportInitialize)showsBindingSource).EndInit();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -322,5 +336,6 @@
 		private OpenFileDialog dlgOpenFile;
 		private BindingSource drDementoViewModelBindingSource;
 		private BindingSource showsBindingSource;
+		private TextBox txtOid;
 	}
 }

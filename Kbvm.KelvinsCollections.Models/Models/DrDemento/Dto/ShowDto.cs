@@ -19,6 +19,7 @@ namespace Kbvm.KelvinsCollections.Models.Models.DrDemento.Dto
 
 		public ShowDto()
 		{
+			Oid = -1;
 			Title = string.Empty;
 			Description = string.Empty;
 			FlacFileName = string.Empty;

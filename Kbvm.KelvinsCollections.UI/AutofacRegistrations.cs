@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Kbvm.KelvinsCollections.Repository;
 using Kbvm.KelvinsCollections.Repository.DrDemento;
 using Kbvm.KelvinsCollections.Repository.Interfaces;
 using Kbvm.KelvinsCollections.UI.Views.Forms;
@@ -22,6 +23,7 @@ namespace Kbvm.KelvinsCollections.UI
 
 			builder.RegisterType<ShowTrackRepository>().As<IShowTrackRepository>();
 			builder.RegisterType<DrDementoHandler>().As<IDrDementoHandler>();
+			builder.RegisterType<TrackHandler>().As<ITrackHandler>();
 		}
 	}
 }

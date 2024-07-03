@@ -3,5 +3,10 @@ using System.Linq;
 
 namespace Kbvm.KelvinsCollections.Models.Models
 {
-    public record TrackDto(string Name, int TrackNumber, string Artist);
-}
+    public class TrackDto
+    {
+		public int Oid { get; set; } = -1;
+		public string Name { get; set; } = string.Empty;
+        public int TrackNumber { get; set; } = 0;
+		public string Artist { get; set; } = string.Empty;
+	}
