@@ -122,7 +122,6 @@
 			// 
 			lstShows.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			lstShows.CausesValidation = false;
-			lstShows.DataBindings.Add(new Binding("SelectedIndex", drDementoViewModelBindingSource, "SelectedIndex", true));
 			lstShows.DataSource = showsBindingSource;
 			lstShows.DisplayMember = "ShowNumberTitle";
 			lstShows.FormattingEnabled = true;

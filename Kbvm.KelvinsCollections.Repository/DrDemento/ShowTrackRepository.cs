@@ -46,7 +46,7 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 
         public async Task UpdateShowAsync(ShowDto showDto)
         {
-            return await CommandAsync(async uow =>
+            await CommandAsync(async uow =>
             {
                 var show = await LoadShowByOidAsync(uow, showDto.Oid);
                 if (show == null)
@@ -57,8 +57,15 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
                 show.Title = showDto.Title;
                 show.Description = showDto.Description;
 
-                AddTracks(uow, show, showDto.Tracks.Where(t => t.Oid <= 0);
+                AddTracks(uow, show, showDto.Tracks.Where(t => t.Oid <= 0).ToList());
 
+                showDto.Tracks.Where(t => t.Oid > 0).ToList().ForEach(t =>
+                {
+                    var track = show.TracksCollection.First(st => st.Oid == t.Oid);
+                    track.Name = t.Name;
+                    track.TrackNumber = t.TrackNumber;
+                    track.Artist = t.Artist;
+                });
             });
         }
 

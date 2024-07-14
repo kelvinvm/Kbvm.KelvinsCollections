@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Kbvm.KelvinsCollections.Common\Kbvm.KelvinsCollections.Common.csproj" />
     <ProjectReference Include="..\Kbvm.KelvinsCollections.Models\Kbvm.KelvinsCollections.Models.csproj" />
     <ProjectReference Include="..\Kbvm.KelvinsCollections.Repository\Kbvm.KelvinsCollections.Repository.csproj" />
   </ItemGroup>

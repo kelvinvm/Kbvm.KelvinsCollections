@@ -2,7 +2,7 @@
 
 namespace Kbvm.KelvinsCollections.Models.Models.DrDemento.Xpo
 {
-    public class Track : XPObject
+    public class Track(Session session) : XPObject(session)
     {
         private string _artist = string.Empty;
         private int _trackNumber;
@@ -34,7 +34,5 @@ namespace Kbvm.KelvinsCollections.Models.Models.DrDemento.Xpo
             get { return _show; }
             set { SetPropertyValue(nameof(Show), ref _show, value); }
         }
-
-        public Track(Session session) : base(session) { }
-    }
+	}
 }

@@ -32,8 +32,7 @@ namespace Kbvm.KelvinsCollections.UI.Views.UserControls
 		// ToDo: Why do I have to do this? Why doesn't the listbox data binding work?
 		private void lstShows_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			var selectedShow = lstShows.SelectedItem as ShowDto;
-			if (selectedShow != null)
+			if (lstShows.SelectedItem is ShowDto selectedShow)
 				_vmDrDemento.SelectedShow = selectedShow;
 		}
 	}

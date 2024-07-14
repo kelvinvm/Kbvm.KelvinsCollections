@@ -2,12 +2,12 @@
 
 namespace Kbvm.KelvinsCollections.Models.Models.DrDemento.Xpo
 {
-    public class Show : XPObject
+    public class Show(Session session) : XPObject(session)
     {
         private DateTime _broadcastDate;
         private int _showNumber;
-        private string _title;
-        private string _description;
+        private string _title = string.Empty;
+        private string _description = string.Empty;
 
         public int ShowNumber
         {
@@ -40,12 +40,5 @@ namespace Kbvm.KelvinsCollections.Models.Models.DrDemento.Xpo
         {
             get { return GetCollection<Track>(nameof(TracksCollection)); }
         }
-
-
-        public Show(Session session) : base(session)
-        {
-            _title = string.Empty;
-            _description = string.Empty;
-        }
-    }
+	}
 }

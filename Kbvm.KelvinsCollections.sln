@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbvm.KelvinsCollections.Mod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbvm.KelvinsCollections.ViewModels", "Kbvm.KelvinsCollections.ViewModels\Kbvm.KelvinsCollections.ViewModels.csproj", "{895330A0-FBAE-4A21-879E-E2A4AE61C16A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kbvm.KelvinsCollections.Repository", "Kbvm.KelvinsCollections.Repository\Kbvm.KelvinsCollections.Repository.csproj", "{0766A4E3-59F3-4AD4-A105-D947CA7A43D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbvm.KelvinsCollections.Repository", "Kbvm.KelvinsCollections.Repository\Kbvm.KelvinsCollections.Repository.csproj", "{0766A4E3-59F3-4AD4-A105-D947CA7A43D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kbvm.KelvinsCollections.Common", "Kbvm.KelvinsCollections.Common\Kbvm.KelvinsCollections.Common.csproj", "{3F38A2A8-BE95-4829-923F-1FA1E49F710D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0766A4E3-59F3-4AD4-A105-D947CA7A43D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0766A4E3-59F3-4AD4-A105-D947CA7A43D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0766A4E3-59F3-4AD4-A105-D947CA7A43D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F38A2A8-BE95-4829-923F-1FA1E49F710D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F38A2A8-BE95-4829-923F-1FA1E49F710D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F38A2A8-BE95-4829-923F-1FA1E49F710D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F38A2A8-BE95-4829-923F-1FA1E49F710D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

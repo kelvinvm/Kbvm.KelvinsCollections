@@ -35,15 +35,13 @@ namespace Kbvm.KelvinsCollections.ViewModels.Handlers
 		public async Task<int> SaveShowAsync(ShowDto show)
 			=> await _repo.SaveNewShowAsync(show);
 
-		public async Task UpdateShowAsync(ShowDto showDto)
-		{
-
-		}
+		public async Task UpdateShowAsync(ShowDto showDto) 
+			=> await _repo.UpdateShowAsync(showDto);
 
 		public IEnumerable<TrackDto> GetTracks(string tracks)
 			=> _trackHandler.GetTracks(tracks);		
 		
 		public async Task DeleteShowAsync(int oid)
 			=> await _repo.DeleteShowAsync(oid);
-	}
+	} 
 }

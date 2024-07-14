@@ -9,7 +9,7 @@ namespace Kbvm.KelvinsCollections.Repository
 	{
 		public IEnumerable<TrackDto> GetTracks(string showNotes, string? artist = null)
 		{
-			List<TrackDto> dtos = new List<TrackDto>();
+			List<TrackDto> dtos = [];
 			if (string.IsNullOrWhiteSpace(showNotes))
 				return dtos;
 
@@ -34,9 +34,9 @@ namespace Kbvm.KelvinsCollections.Repository
 				else
 				{
 					trackDto = new TrackDto(
-						Name: curLine.Substring(0, hyphenPos - 1).Trim(),
-						TrackNumber: trackNum,
-						Artist: curLine.Substring(hyphenPos + 1).Trim());
+						name: curLine[..(hyphenPos - 1)].Trim(),
+						trackNumber: trackNum,
+						artist: curLine[(hyphenPos + 1)..].Trim());
 				}
 
 				dtos.Add(trackDto);

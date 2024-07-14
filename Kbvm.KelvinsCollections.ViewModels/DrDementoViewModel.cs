@@ -1,16 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Kbvm.KelvinsCollections.Common.Aspects;
 using Kbvm.KelvinsCollections.Models.Models.DrDemento.Dto;
 using Kbvm.KelvinsCollections.Repository.Interfaces;
 using Kbvm.KelvinsCollections.ViewModels.Handlers;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 
 namespace Kbvm.KelvinsCollections.ViewModels
 {
 	public partial class DrDementoViewModel : ObservableObject
 	{
-		private IDrDementoHandler _handler;
+		private readonly IDrDementoHandler _handler;
 
 		public DrDementoViewModel(IShowTrackRepository repo, IDrDementoHandler handler)
 		{
@@ -49,13 +49,9 @@ namespace Kbvm.KelvinsCollections.ViewModels
 		[ObservableProperty]
 		private ShowDto? _selectedShow;
 
-		[ObservableProperty]
-		private int _selectedIndex;
-
 		[NotifyCanExecuteChangedFor("DeleteShowCommand")]
 		[ObservableProperty]
 		private int _oid;
-
 
 		#endregion
 
@@ -64,7 +60,7 @@ namespace Kbvm.KelvinsCollections.ViewModels
 		private async Task SaveShowAsync()
 		{
 			var showDto = LoadShow();
-			if (Oid <= 0)
+			if (Oid > 0)
 				await _handler.UpdateShowAsync(showDto);
 			else
 			{
@@ -124,21 +120,20 @@ namespace Kbvm.KelvinsCollections.ViewModels
 			Description = show.Description;
 			BroadcastDate = show.BroadcastDate == DateTime.MinValue ? DateTime.Now : show.BroadcastDate;
 			PlayList = String.Join("\r\n", show.Tracks.Select(t => $"{t.Name} - {t.Artist}"));  // What do I do with the OID here?
-			SelectedShow = null;
-			SelectedIndex = -1;
 			Oid = show.Oid;
 		}
 
 		private ShowDto LoadShow()
 		{
-			var showDto = new ShowDto();
-
-			showDto.Oid = Oid;
-			showDto.ShowNumber = ShowNumber ?? 0;
-			showDto.Title = Title;
-			showDto.Description = Description;
-			showDto.BroadcastDate = BroadcastDate;
-			showDto.Tracks = _handler.GetTracks(PlayList).ToList();
+			ShowDto showDto = new()
+			{
+				Oid = Oid,
+				ShowNumber = ShowNumber ?? 0,
+				Title = Title,
+				Description = Description,
+				BroadcastDate = BroadcastDate,
+				Tracks = _handler.GetTracks(PlayList).ToList()
+			};
 
 			return showDto;
 		}
