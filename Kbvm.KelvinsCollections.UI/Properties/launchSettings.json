@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Kbvm.KelvinsCollections.UI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Kbvm.KelvinsCollections.UI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

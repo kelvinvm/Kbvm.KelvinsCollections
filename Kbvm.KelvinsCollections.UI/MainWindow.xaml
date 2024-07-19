@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window	x:Class="Kbvm.KelvinsCollections.UI.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="using:Kbvm.KelvinsCollections.UI"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:uc="using:Kbvm.KelvinsCollections.UI.UserControls"
+		xmlns:viewmodels="using:Kbvm.KelvinsCollections.UI.ViewModels"
+		mc:Ignorable="d">
+	<Window.SystemBackdrop>
+		<DesktopAcrylicBackdrop />
+	</Window.SystemBackdrop>
+	<Grid x:Name="Root" BorderBrush="Black" >
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="100"/>
+			<RowDefinition/>
+			<RowDefinition Height="40"/>
+		</Grid.RowDefinitions>
+
+
+		<uc:HeaderControl Grid.Row="0" Grid.ColumnSpan="2" />
+
+		<uc:DrDShowListControl Grid.Column="0" Grid.Row="1" Shows="{x:Bind ViewModel.Shows}" />
+
+		<Grid Grid.Row="1" Grid.Column="1" />
+
+		<uc:FooterControl Grid.Row="2" Grid.ColumnSpan="2" />
+	</Grid>
+
+</Window>
