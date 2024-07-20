@@ -4,6 +4,7 @@ using AutoMapper.Contrib.Autofac.DependencyInjection;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Kbvm.KelvinsCollections.Models.Models.DrDemento;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using System;
 using System.Linq;
@@ -12,11 +13,10 @@ namespace Kbvm.KelvinsCollections.UI
 {
 	public partial class App : Application
 	{
-		private MainWindow _mainWindow;
-
 		public App()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
+
 		}
 
 		protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)

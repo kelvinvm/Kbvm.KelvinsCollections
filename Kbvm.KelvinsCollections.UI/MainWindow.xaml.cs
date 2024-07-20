@@ -16,6 +16,8 @@ namespace Kbvm.KelvinsCollections.UI
 
 			ViewModel = viewModel;	
 			Root.Loaded += Root_Loaded;
+
+			this.AppWindow.Resize(new Windows.Graphics.SizeInt32(750, 1000));
 		}
 
 		private async void Root_Loaded(object sender, RoutedEventArgs e) 

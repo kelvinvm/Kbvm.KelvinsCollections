@@ -23,6 +23,19 @@ namespace Kbvm.KelvinsCollections.UI.UserControls
 			set => SetValue(ShowListProperty, value);
 		}
 
+		public static readonly DependencyProperty SelectedShowProperty =
+		DependencyProperty.Register(
+			nameof(SelectedShow),
+			typeof(ShowViewModel),
+			typeof(DrDShowEditorControl),
+			new PropertyMetadata(null));
+
+		public ShowViewModel SelectedShow
+		{
+			get => (ShowViewModel)GetValue(SelectedShowProperty);
+			set => SetValue(SelectedShowProperty, value);
+		}
+
 		public DrDShowListControl()
 		{
 			this.InitializeComponent();

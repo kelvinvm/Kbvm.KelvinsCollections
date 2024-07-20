@@ -14,7 +14,9 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Resources\Styles.xaml" />
+		<None Remove="Resources\Templates.xaml" />
 		<None Remove="UserControls\DrDementoControl.xaml" />
+		<None Remove="UserControls\DrDShowEditorControl.xaml" />
 		<None Remove="UserControls\DrDShowListControl.xaml" />
 		<None Remove="UserControls\FooterControl.xaml" />
 		<None Remove="UserControls\HeaderControl.xaml" />
@@ -88,4 +90,9 @@
 	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
 		<HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Page Update="Resources\Templates.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
 </Project>

@@ -26,7 +26,8 @@
 		</Grid.Resources>
 		<ListView Style="{StaticResource ShowList}"
 			ItemsSource="{x:Bind Shows}" 
+			SelectedItem="{x:Bind SelectedShow,Mode=TwoWay}"
 			ItemTemplate="{StaticResource DrDShowTemplate}"
 		/>
-    </Grid>
+	</Grid>
 </UserControl>

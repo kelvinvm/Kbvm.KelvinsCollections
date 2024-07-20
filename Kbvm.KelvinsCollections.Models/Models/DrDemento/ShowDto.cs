@@ -2,6 +2,7 @@
 {
 	public class ShowDto
 	{
+		public int Oid { get; set; }
 		public int ShowNumber { get; set; } = -1;
 		public DateTime BroadcastDate { get; set; }
 		public string Title { get; set; } = string.Empty;

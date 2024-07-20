@@ -41,4 +41,27 @@
 		<Setter Property="Background" Value="{ThemeResource SubtleFillColorSecondaryBrush}" />
 	</Style>
 
+	<Style x:Key="EditorField" TargetType="Control">
+		<Setter Property="Margin" Value="0 0 0 16" />
+		<Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+	</Style>
+
+	<Style x:Key="TextBoxField" TargetType="TextBox">
+		<Setter Property="Margin" Value="0 0 0 16" />
+		<Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+		<Setter Property="HeaderTemplate" Value="{StaticResource HeaderTemplate}" />
+	</Style>
+
+	<Style x:Key="NumberBoxField" TargetType="NumberBox">
+		<Setter Property="Margin" Value="0 0 0 16" />
+		<Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+		<Setter Property="HeaderTemplate" Value="{StaticResource HeaderTemplate}" />
+	</Style>
+
+	<Style x:Key="DatePickerField" TargetType="DatePicker">
+		<Setter Property="Margin" Value="0 0 0 16" />
+		<Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+		<Setter Property="HeaderTemplate" Value="{StaticResource DatePickerHeaderTemplate}" />
+	</Style>
+
 </ResourceDictionary>

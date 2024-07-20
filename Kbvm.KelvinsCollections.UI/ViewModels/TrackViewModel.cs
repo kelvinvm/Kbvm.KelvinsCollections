@@ -8,6 +8,8 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 	public partial class TrackViewModel : ObservableRecipient
 	{
 		[ObservableProperty]
+		private int _oid;
+		[ObservableProperty]
 		private string _name;
 		[ObservableProperty]
 		private int _trackNumber;

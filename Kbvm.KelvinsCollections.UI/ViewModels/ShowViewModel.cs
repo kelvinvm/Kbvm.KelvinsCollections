@@ -9,9 +9,11 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 	public partial class ShowViewModel : ObservableRecipient
 	{
 		[ObservableProperty]
+		private int _oid;
+		[ObservableProperty]
 		private int _showNumber;
 		[ObservableProperty]
-		private DateTime _broadcastDate;
+		private DateTimeOffset _broadcastDate;
 		[ObservableProperty]
 		private string _title;
 		[ObservableProperty]

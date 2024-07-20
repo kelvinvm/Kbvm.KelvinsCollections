@@ -25,11 +25,35 @@
 
 		<uc:HeaderControl Grid.Row="0" Grid.ColumnSpan="2" />
 
-		<uc:DrDShowListControl Grid.Column="0" Grid.Row="1" Shows="{x:Bind ViewModel.Shows}" />
+		<uc:DrDShowListControl Grid.Column="0" Grid.Row="1" 
+							   Shows="{x:Bind ViewModel.Shows, Mode=OneWay}" 
+							   SelectedShow="{x:Bind ViewModel.SelectedShow, Mode=TwoWay}"/>
 
-		<Grid Grid.Row="1" Grid.Column="1" />
+		<!--<Grid Grid.Column="0" Grid.Row="1">
+			<Grid.Resources>
+				<DataTemplate 
+					x:Key="DrDShowTemplate"
+                    x:DataType="viewmodels:ShowViewModel">
+					<StackPanel Orientation="Vertical" Margin="0 6 0 6">
+						<TextBlock Text="{x:Bind Title,Mode=OneWay}" FontWeight="SemiBold"  />
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="{x:Bind ShowNumber,Mode=OneWay}" Style="{StaticResource ItalicSmall}" />
+							<TextBlock Text="&#x2013;" Style="{StaticResource ItalicSmall}" Margin="5 0 5 0" />
+							<TextBlock Text="{x:Bind ShowDate,Mode=OneWay}" Style="{StaticResource ItalicSmall}"/>
+						</StackPanel>
+					</StackPanel>
+				</DataTemplate>
+			</Grid.Resources>
+			<ListView Style="{StaticResource ShowList}"
+			ItemsSource="{x:Bind ViewModel.Shows}" 
+			SelectedItem="{x:Bind ViewModel.SelectedShow,Mode=TwoWay}"
+			ItemTemplate="{StaticResource DrDShowTemplate}"	/>
+		</Grid>-->
 
+		<uc:DrDShowEditorControl Grid.Column="1" Grid.Row="1"  Show="{x:Bind ViewModel.SelectedShow, Mode=TwoWay}" />
+		
 		<uc:FooterControl Grid.Row="2" Grid.ColumnSpan="2" />
 	</Grid>
 
 </Window>
+ 

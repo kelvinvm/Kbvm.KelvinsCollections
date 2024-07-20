@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="Kbvm.KelvinsCollections.UI.UserControls.DrDShowEditorControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Kbvm.KelvinsCollections.UI.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" Margin="30">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="100"/>
+			</Grid.ColumnDefinitions>
+
+			<TextBox x:Name="FlacFileName" 
+					 Header="FLAC File"
+					 Grid.Column="0"
+					 Text="{x:Bind FlacFile,Mode=TwoWay}"
+					 Style="{StaticResource TextBoxField}" />
+			
+			<Button x:Name="ChooseFile"
+					Grid.Column="1"
+					Margin="8 11 0 0"
+					HorizontalAlignment="Right"
+					Width="100"
+					Content="Browse" 
+					Style="{StaticResource EditorField}"/>
+		</Grid>
+		
+		<NumberBox x:Name="ShowNumber" 
+				   Width="150"
+				   Header="Show Number"
+				   HorizontalAlignment="Left"
+				   SpinButtonPlacementMode="Hidden" 
+				   Text="{x:Bind Show.ShowNumber,Mode=TwoWay}"
+				   Style="{StaticResource NumberBoxField}" />
+
+		<DatePicker x:Name="BroadcastDate"
+					Header="Broadcast Date" 
+					Date="{x:Bind Show.BroadcastDate,Mode=TwoWay}"
+					Style="{StaticResource DatePickerField}"/>
+		
+		<TextBox x:Name="Title" 
+				 Header="Title" 
+				 Text="{x:Bind Show.Title,Mode=TwoWay}"
+				 Style="{StaticResource TextBoxField}" />
+		
+		<TextBox x:Name="Description" 
+				 Header="Description"
+				 AutomationProperties.Name="multi-line TextBox"
+				 TextWrapping="Wrap"
+				 AcceptsReturn="True"
+				 IsSpellCheckEnabled="True"
+				 MinHeight="150" 
+				 Text="{x:Bind Show.Description,Mode=TwoWay}"
+				 Style="{StaticResource TextBoxField}" />
+		
+	</StackPanel>
+</UserControl>
