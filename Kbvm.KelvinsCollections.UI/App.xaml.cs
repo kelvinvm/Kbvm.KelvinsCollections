@@ -16,7 +16,6 @@ namespace Kbvm.KelvinsCollections.UI
 		public App()
 		{
 			InitializeComponent();
-
 		}
 
 		protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)

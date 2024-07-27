@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Kbvm.KelvinsCollections.UI.UserControls
 {
-	public sealed partial class DrDShowListControl : UserControl
+	public partial class DrDShowListControl : UserControl
 	{
 		public static readonly DependencyProperty ShowListProperty =
 			DependencyProperty.Register(

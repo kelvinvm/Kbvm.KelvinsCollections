@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
@@ -13,13 +13,19 @@
 		<EnableMsixTooling>true</EnableMsixTooling>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="UserControls\DrDTrackListControl.xaml.cs" />
+	</ItemGroup>
+	<ItemGroup>
 		<None Remove="Resources\Styles.xaml" />
 		<None Remove="Resources\Templates.xaml" />
-		<None Remove="UserControls\DrDementoControl.xaml" />
 		<None Remove="UserControls\DrDShowEditorControl.xaml" />
 		<None Remove="UserControls\DrDShowListControl.xaml" />
+		<None Remove="UserControls\DrDTrackListControl.xaml" />
 		<None Remove="UserControls\FooterControl.xaml" />
 		<None Remove="UserControls\HeaderControl.xaml" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Remove="UserControls\DrDTrackListControl.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -70,11 +76,6 @@
 	  <Page Update="UserControls\DrDShowListControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </Page>
-	</ItemGroup>
-	<ItemGroup>
-		<Page Update="UserControls\DrDementoControl.xaml">
-			<Generator>MSBuild:Compile</Generator>
-		</Page>
 	</ItemGroup>
 	<ItemGroup>
 	  <Page Update="Resources\Styles.xaml">

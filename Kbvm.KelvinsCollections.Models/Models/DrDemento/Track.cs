@@ -34,5 +34,5 @@ namespace Kbvm.KelvinsCollections.Models.Models.DrDemento
             get { return _show; }
             set { SetPropertyValue(nameof(Show), ref _show, value); }
         }
-    }
+	}
 }

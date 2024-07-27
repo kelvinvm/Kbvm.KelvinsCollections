@@ -1,6 +1,8 @@
-﻿namespace Kbvm.KelvinsCollections.Models.Models.DrDemento
+﻿using Kbvm.KelvinsCollections.Models.Interfaces;
+
+namespace Kbvm.KelvinsCollections.Models.Models.DrDemento
 {
-	public class ShowDto
+	public class ShowDto : IHaveKey
 	{
 		public int Oid { get; set; }
 		public int ShowNumber { get; set; } = -1;

@@ -40,5 +40,5 @@ namespace Kbvm.KelvinsCollections.Models.Models.DrDemento
         {
             get { return GetCollection<Track>(nameof(Tracks)); }
         }
-    }
+	}
 }

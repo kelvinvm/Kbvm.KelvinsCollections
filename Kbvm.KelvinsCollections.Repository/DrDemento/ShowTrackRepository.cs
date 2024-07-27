@@ -1,16 +1,19 @@
 ﻿using AutoMapper;
 using DevExpress.Xpo;
 using Kbvm.DrDemento.Repository;
+using Kbvm.KelvinsCollections.Models.Interfaces;
 using Kbvm.KelvinsCollections.Models.Models.DrDemento;
+using Kbvm.KelvinsCollections.Repository.Exceptions;
 using Kbvm.KelvinsCollections.Repository.Interfaces;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace Kbvm.KelvinsCollections.Repository.DrDemento
 {
 
-    public class ShowTrackRepository : RepositoryBase, IShowTrackRepository
-    {
+	public class ShowTrackRepository : RepositoryBase, IShowTrackRepository
+	{
 		private readonly IMapper _mapper;
 
 		public ShowTrackRepository(IMapper mapper)
@@ -25,6 +28,58 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 				var shows = await uow.Query<Show>().ToListAsync();
 				return _mapper.Map<IEnumerable<Show>, IEnumerable<ShowDto>>(shows.OrderByDescending(s => s.ShowNumber));
 			});
+		}
+
+		public async Task<int> SaveNewShowAsync(ShowDto showDto)
+		{
+			return await CommandAsync(uow =>
+			{
+				var show = _mapper.Map<ShowDto, Show>(showDto, new Show(uow));
+
+				AddNewTracks(uow, show, showDto.Tracks);
+
+				return show;
+			});
+		}
+
+		public async Task<ShowDto> UpdateShowAsync(ShowDto showDto)
+		{
+			ShowDto updatedShow = null!;
+
+			await CommandAsync(async uow =>
+			{
+				Show show = await UpdateXpoObjectFromDtoAsync<ShowDto, Show>(uow, showDto);
+
+				AddNewTracks(uow, show, showDto.Tracks.Where(t => t.Oid <= 0).ToList());
+
+				await UpdateTracksAsync(uow, showDto.Tracks.Where(t => t.Oid > 0).ToList());
+
+				updatedShow = _mapper.Map<Show, ShowDto>(show);
+			});
+
+			return updatedShow;
+		}
+
+		private void AddNewTracks(UnitOfWork uow, Show show, IList<TrackDto> tracks)
+		{
+			foreach (TrackDto trackDto in tracks)
+				show.Tracks.Add(_mapper.Map<TrackDto, Track>(trackDto, new Track(uow)));
+		}
+
+		private async Task UpdateTracksAsync(UnitOfWork uow, List<TrackDto> tracks)
+		{
+			foreach (TrackDto trackDto in tracks)
+				await UpdateXpoObjectFromDtoAsync<TrackDto, Track>(uow, trackDto);
+		}
+
+		private async Task<TXpo> UpdateXpoObjectFromDtoAsync<TDto, TXpo>(UnitOfWork uow, TDto dto) 
+			where TXpo : XPObject
+			where TDto : IHaveKey
+		{
+			var xpObject = await uow.GetObjectByKeyAsync<TXpo>(dto.Oid);
+			if (xpObject == null)
+				throw new XpoObjectCouldNotBeLoadedException(typeof(TXpo), dto.Oid);
+			return _mapper.Map(dto, xpObject);
 		}
 
 		//public async Task<int> SaveNewShowAsync(ShowDto showDto)

@@ -1,6 +1,8 @@
-﻿namespace Kbvm.KelvinsCollections.Models.Models.DrDemento
+﻿using Kbvm.KelvinsCollections.Models.Interfaces;
+
+namespace Kbvm.KelvinsCollections.Models.Models.DrDemento
 {
-	public class TrackDto
+	public class TrackDto : IHaveKey 
 	{
 		public int Oid { get; set; }
 		public string Name { get; set; } = string.Empty;

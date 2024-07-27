@@ -6,6 +6,8 @@ namespace Kbvm.KelvinsCollections.Repository.Interfaces
 {
     public interface IShowTrackRepository
     {
+		Task<ShowDto> UpdateShowAsync(ShowDto showDto);
+		Task<int> SaveNewShowAsync(ShowDto showDto);
 		Task<IEnumerable<ShowDto>> GetAllShowsAsync();
 	}
 }

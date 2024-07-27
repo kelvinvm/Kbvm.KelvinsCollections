@@ -64,4 +64,13 @@
 		<Setter Property="HeaderTemplate" Value="{StaticResource DatePickerHeaderTemplate}" />
 	</Style>
 
+	<Style x:Key="ListViewSpace" TargetType="ListViewItem">
+		<Setter Property="Margin" Value="26 0 0 0" />
+	</Style>
+
+	<Style x:Key="EditorHeader" TargetType="TextBlock">
+		<Setter Property="FontWeight" Value="Medium" />
+		<Setter Property="Foreground" Value="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+	</Style>
+
 </ResourceDictionary>

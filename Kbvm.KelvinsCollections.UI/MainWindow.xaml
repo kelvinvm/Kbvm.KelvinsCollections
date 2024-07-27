@@ -11,48 +11,112 @@
 	<Window.SystemBackdrop>
 		<DesktopAcrylicBackdrop />
 	</Window.SystemBackdrop>
-	<Grid x:Name="Root" BorderBrush="Black" >
+	<Grid x:Name="Root">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto"/>
 			<ColumnDefinition />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="100"/>
-			<RowDefinition/>
-			<RowDefinition Height="40"/>
+			<RowDefinition Height="Auto" />
+			<RowDefinition />
+			<RowDefinition Height="40" />
 		</Grid.RowDefinitions>
 
+		<!--<Grid Grid.Column="0" Grid.Row="0">
+			<Border BorderBrush="Black" BorderThickness="1" />
+		</Grid>
+		<Grid Grid.Column="0" Grid.Row="1">
+			<Border BorderBrush="Black" BorderThickness="1" />
+		</Grid>
+		<Grid Grid.Column="0" Grid.Row="2">
+			<Border BorderBrush="Black" BorderThickness="1" />
+		</Grid>
+		<Grid Grid.Column="0" Grid.Row="3">
+			<Border BorderBrush="Black" BorderThickness="1" />
+		</Grid>
+		<Grid Grid.Column="1" Grid.Row="0">
+			<Border BorderBrush="Black" BorderThickness="1" />
+		</Grid>
+		<Grid Grid.Column="1" Grid.Row="1">
+			<Border BorderBrush="Black" BorderThickness="1" />
+		</Grid>
+		<Grid Grid.Column="1" Grid.Row="2">
+			<Border BorderBrush="Black" BorderThickness="1" />
+		</Grid>
+		<Grid Grid.Column="1" Grid.Row="3">
+			<Border BorderBrush="Black" BorderThickness="1" />
+		</Grid>-->
 
-		<uc:HeaderControl Grid.Row="0" Grid.ColumnSpan="2" />
+		<uc:HeaderControl Grid.Row="0" Grid.ColumnSpan="2"/>
 
-		<uc:DrDShowListControl Grid.Column="0" Grid.Row="1" 
+		<uc:DrDShowListControl Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"  
 							   Shows="{x:Bind ViewModel.Shows, Mode=OneWay}" 
 							   SelectedShow="{x:Bind ViewModel.SelectedShow, Mode=TwoWay}"/>
 
-		<!--<Grid Grid.Column="0" Grid.Row="1">
-			<Grid.Resources>
-				<DataTemplate 
-					x:Key="DrDShowTemplate"
-                    x:DataType="viewmodels:ShowViewModel">
-					<StackPanel Orientation="Vertical" Margin="0 6 0 6">
-						<TextBlock Text="{x:Bind Title,Mode=OneWay}" FontWeight="SemiBold"  />
-						<StackPanel Orientation="Horizontal">
-							<TextBlock Text="{x:Bind ShowNumber,Mode=OneWay}" Style="{StaticResource ItalicSmall}" />
-							<TextBlock Text="&#x2013;" Style="{StaticResource ItalicSmall}" Margin="5 0 5 0" />
-							<TextBlock Text="{x:Bind ShowDate,Mode=OneWay}" Style="{StaticResource ItalicSmall}"/>
-						</StackPanel>
-					</StackPanel>
-				</DataTemplate>
-			</Grid.Resources>
-			<ListView Style="{StaticResource ShowList}"
-			ItemsSource="{x:Bind ViewModel.Shows}" 
-			SelectedItem="{x:Bind ViewModel.SelectedShow,Mode=TwoWay}"
-			ItemTemplate="{StaticResource DrDShowTemplate}"	/>
-		</Grid>-->
+		<uc:DrDShowEditorControl Grid.Column="1" Grid.Row="1" 
+								 Margin="0 0 0 0"
+								 Show="{x:Bind ViewModel.SelectedShow, Mode=TwoWay}" />
 
-		<uc:DrDShowEditorControl Grid.Column="1" Grid.Row="1"  Show="{x:Bind ViewModel.SelectedShow, Mode=TwoWay}" />
 		
-		<uc:FooterControl Grid.Row="2" Grid.ColumnSpan="2" />
+		<!-- I don't know why this doesn't work as a user control -->
+		<!--<uc:DrDTrackListControl Grid.Column="1" Grid.Row="2"
+								Tracks="{x:Bind ViewModel.SelectedShowTracks, Mode=OneWay}" 
+								/>-->
+
+		<Grid Grid.Column="1" Grid.Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="350" />
+				<ColumnDefinition />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition />
+			</Grid.RowDefinitions>
+
+			<!--<Grid Grid.Column="0" Grid.Row="0">
+				<Border BorderBrush="Blue" BorderThickness="1" />
+			</Grid>
+			<Grid Grid.Column="0" Grid.Row="1">
+				<Border BorderBrush="Blue" BorderThickness="1" />
+			</Grid>
+			<Grid Grid.Column="1" Grid.Row="0">
+				<Border BorderBrush="Blue" BorderThickness="1" />
+			</Grid>
+			<Grid Grid.Column="1" Grid.Row="1">
+				<Border BorderBrush="Blue" BorderThickness="1" />
+			</Grid>-->
+
+			<TextBlock Grid.Column="0" Grid.Row="0" Margin="30 0 0 0" Text="Tracks"
+					   Style="{StaticResource EditorHeader}" />
+			<ListView Grid.Column="0" Grid.Row="1"
+				ItemsSource="{x:Bind ViewModel.SelectedShowTracks,Mode=OneWay}"
+				SelectedItem="{x:Bind ViewModel.SelectedTrack,Mode=TwoWay}"
+				ItemContainerStyle="{StaticResource ListViewSpace}" 
+				ItemTemplate="{StaticResource TrackListItemTemplate}"
+			/>
+
+			<StackPanel Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" Margin="10 0 30 0">
+				<NumberBox x:Name="TrackNumber"
+					Header="Track Number"
+					HorizontalAlignment="Left"						   
+					Width="90"
+					Text="{x:Bind ViewModel.SelectedTrack.TrackNumber,Mode=TwoWay}"
+					Style="{StaticResource NumberBoxField}" />
+				<TextBox x:Name="Name"
+					 Header="Name"
+					 Text="{x:Bind ViewModel.SelectedTrack.Name,Mode=TwoWay}"
+					 Style="{StaticResource TextBoxField}" />
+				<TextBox x:Name="Artist"
+					 Header="Artist"
+					 Text="{x:Bind ViewModel.SelectedTrack.Artist,Mode=TwoWay}"
+					 Style="{StaticResource TextBoxField}" />
+
+			</StackPanel>
+		</Grid>
+
+
+		<uc:FooterControl Grid.Row="3" Grid.ColumnSpan="2" />
 	</Grid>
 
 </Window>
