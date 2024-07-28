@@ -56,19 +56,21 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 			newValue.PropertyChanged += AutoSaveShow;
 
 			SelectedShowTracks = new ObservableCollection<TrackViewModel>(newValue.Tracks.OrderBy(t => t.TrackNumber));
+			SelectedTrack = SelectedShowTracks.FirstOrDefault();
 		}
 
 		partial void OnSelectedTrackChanged(TrackViewModel oldValue, TrackViewModel newValue)
 		{
 			if (oldValue is not null)
-				oldValue.PropertyChanged -= AutoSaveShow;
-			newValue.PropertyChanged += AutoSaveShow;
+				oldValue.PropertyChanged -= AutoSaveShow; 
+			if (newValue is not null)
+				newValue.PropertyChanged += AutoSaveShow;
 		}
 
 		private async void AutoSaveShow(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
-			Debug.WriteLine($"Saving {((ShowViewModel)sender).Title}...");
-			await _showTrackRepo.UpdateShowAsync(_mapper.Map<ShowViewModel, ShowDto>((ShowViewModel)sender));
+			Debug.WriteLine($"Saving {SelectedShow.Title}...");
+			await _showTrackRepo.UpdateShowAsync(_mapper.Map<ShowViewModel, ShowDto>(SelectedShow));
 		}
 
 		public async Task LoadAsync()
