@@ -2,6 +2,7 @@
 using ColorCode.Common;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using Kbvm.KelvinsCollections.Common.Aspects;
 using Kbvm.KelvinsCollections.Models.Models.DrDemento;
 using Kbvm.KelvinsCollections.Repository.Interfaces;
 using Kbvm.KelvinsCollections.UI.UserControls;
@@ -35,9 +36,6 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 		}
 
 		[ObservableProperty]
-		private List<string> _items = ["one", "two", "three", "four", "five"];
-
-		[ObservableProperty]
 		private ObservableCollection<ShowViewModel> _shows = [];
 
 		[ObservableProperty]
@@ -67,9 +65,9 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 				newValue.PropertyChanged += AutoSaveShow;
 		}
 
+		[LogMethodTime]
 		private async void AutoSaveShow(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
-			Debug.WriteLine($"Saving {SelectedShow.Title}...");
 			await _showTrackRepo.UpdateShowAsync(_mapper.Map<ShowViewModel, ShowDto>(SelectedShow));
 		}
 

@@ -6,7 +6,7 @@ namespace Kbvm.DrDemento.Repository
 {
 	public class RepositoryBase
 	{
-		protected static async Task CommandAsync(Func<UnitOfWork, Task> fnCommand)
+		protected async Task CommandAsync(Func<UnitOfWork, Task> fnCommand)
 		{
 			using var uow = new UnitOfWork();
 			uow.BeginTransaction();
@@ -15,7 +15,7 @@ namespace Kbvm.DrDemento.Repository
 			await uow.CommitChangesAsync();
 		}
 
-		protected static async Task<int> CommandAsync(Func<UnitOfWork, Task<XPObject>> fnCommand)
+		protected async Task<int> CommandAsync(Func<UnitOfWork, Task<XPObject>> fnCommand)
 		{
 			using var uow = new UnitOfWork();
 			uow.BeginTransaction();
@@ -26,7 +26,7 @@ namespace Kbvm.DrDemento.Repository
 			return result.Oid;
 		}
 
-		protected static async Task<int> CommandAsync(Func<UnitOfWork, XPObject> fnCommand)
+		protected async Task<int> CommandAsync(Func<UnitOfWork, XPObject> fnCommand)
 		{
 			using var uow = new UnitOfWork();
 			uow.BeginTransaction();
@@ -37,7 +37,7 @@ namespace Kbvm.DrDemento.Repository
 			return result.Oid;
 		}
 
-		protected static async Task<T> QueryAsync<T>(Func<UnitOfWork, Task<T>> fnQuery)
+		protected async Task<T> QueryAsync<T>(Func<UnitOfWork, Task<T>> fnQuery)
 		{
 			using var uow = new UnitOfWork();
 			return await fnQuery(uow);

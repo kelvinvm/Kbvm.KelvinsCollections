@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DevExpress.Xpo;
 using Kbvm.DrDemento.Repository;
+using Kbvm.KelvinsCollections.Common.Aspects;
 using Kbvm.KelvinsCollections.Models.Interfaces;
 using Kbvm.KelvinsCollections.Models.Models.DrDemento;
 using Kbvm.KelvinsCollections.Repository.Exceptions;
@@ -8,6 +9,7 @@ using Kbvm.KelvinsCollections.Repository.Interfaces;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
+using static DevExpress.Data.Helpers.ExpressiveSortInfo;
 
 namespace Kbvm.KelvinsCollections.Repository.DrDemento
 {
@@ -21,6 +23,7 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 			_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 		}
 
+		[LogException]
 		public async Task<IEnumerable<ShowDto>> GetAllShowsAsync()
 		{
 			return await QueryAsync(async uow =>
@@ -30,6 +33,7 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 			});
 		}
 
+		[LogException]
 		public async Task<int> SaveNewShowAsync(ShowDto showDto)
 		{
 			return await CommandAsync(uow =>
@@ -42,6 +46,7 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 			});
 		}
 
+		[LogException]
 		public async Task<ShowDto> UpdateShowAsync(ShowDto showDto)
 		{
 			ShowDto updatedShow = null!;
@@ -72,6 +77,7 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 				await UpdateXpoObjectFromDtoAsync<TrackDto, Track>(uow, trackDto);
 		}
 
+		[NoLog]
 		private async Task<TXpo> UpdateXpoObjectFromDtoAsync<TDto, TXpo>(UnitOfWork uow, TDto dto) 
 			where TXpo : XPObject
 			where TDto : IHaveKey

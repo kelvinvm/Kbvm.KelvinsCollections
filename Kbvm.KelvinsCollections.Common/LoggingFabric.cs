@@ -11,10 +11,10 @@ namespace Kbvm.KelvinsCollections.UI
 	{
 		public override void AmendProject(IProjectAmender amender)
 		{
-			amender.Outbound
-				.SelectMany(p => p.Types)
-				.SelectMany(t => t.Methods)
-				.AddAspectIfEligible<LogAttribute>();
+			//amender.Outbound
+			//	.SelectMany(p => p.Types)
+			//	.SelectMany(t => t.Methods)
+			//	.AddAspectIfEligible<LogAttribute>();
 		}
 	}
 }
