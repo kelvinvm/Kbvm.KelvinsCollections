@@ -15,7 +15,19 @@
 					x:Key="DrDShowTemplate"
                     x:DataType="viewmodels:ShowViewModel">
 				<StackPanel Orientation="Vertical" Margin="0 6 0 6">
-					<TextBlock Text="{x:Bind Title,Mode=OneWay}" FontWeight="SemiBold"  />
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="35"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Grid.Column="0" Text="{x:Bind Title,Mode=OneWay}" FontWeight="SemiBold" />
+						<HyperlinkButton Grid.Column="1" Click="ConfirmDeleteDialog">
+							<HyperlinkButton.Content>
+								<!--<TextBlock>Hey</TextBlock>-->
+								<FontIcon FontSize="12" FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;"/>
+							</HyperlinkButton.Content>
+						</HyperlinkButton>
+					</Grid>
 					<StackPanel Orientation="Horizontal">
 						<TextBlock Text="{x:Bind ShowNumber,Mode=OneWay}" Style="{StaticResource ItalicSmall}" />
 						<TextBlock Text="&#x2013;" Style="{StaticResource ItalicSmall}" Margin="5 0 5 0" />

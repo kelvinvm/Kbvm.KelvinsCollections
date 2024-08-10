@@ -14,7 +14,7 @@ using static DevExpress.Data.Helpers.ExpressiveSortInfo;
 namespace Kbvm.KelvinsCollections.Repository.DrDemento
 {
 
-	public class ShowTrackRepository : RepositoryBase, IShowTrackRepository
+	public partial class ShowTrackRepository : RepositoryBase, IShowTrackRepository
 	{
 		private readonly IMapper _mapper;
 

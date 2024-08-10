@@ -13,4 +13,8 @@
     <PackageReference Include="System.Formats.Asn1" Version="8.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Kbvm.KelvinsCollections.Common\Kbvm.KelvinsCollections.Common.csproj" />
+  </ItemGroup>
+
 </Project>

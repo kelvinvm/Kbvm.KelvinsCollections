@@ -1,5 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Kbvm.KelvinsCollections.Models.Models.DrDemento;
+using Kbvm.KelvinsCollections.UI.Messages;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

@@ -1,3 +1,5 @@
+using CommunityToolkit.Mvvm.Messaging;
+using Kbvm.KelvinsCollections.UI.Messages;
 using Kbvm.KelvinsCollections.UI.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -39,6 +41,23 @@ namespace Kbvm.KelvinsCollections.UI.UserControls
 		public DrDShowListControl()
 		{
 			this.InitializeComponent();
+		}
+
+		private async void ConfirmDeleteDialog(object sender, RoutedEventArgs eventArgs)
+		{
+			ContentDialog dlg = new ContentDialog()
+			{
+				XamlRoot = this.XamlRoot,
+				Title = "Delete Show",
+				Content = "Are you sure you want to delete this show?",
+				PrimaryButtonText = "Delete",
+				SecondaryButtonText = "Don't Delete",
+				DefaultButton = ContentDialogButton.Secondary
+			};
+
+			var result = await dlg.ShowAsync();
+			if (result == ContentDialogResult.Primary)
+				WeakReferenceMessenger.Default.Send(new DeleteShowMessage(SelectedShow));
 		}
 	}
 }

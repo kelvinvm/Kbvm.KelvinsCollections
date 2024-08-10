@@ -8,8 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="DevExpress.Xpo" Version="24.1.4" />
-    <PackageReference Include="Metalama.Extensions.DependencyInjection" Version="2024.2.18" />
-    <PackageReference Include="Metalama.Framework" Version="2024.2.18" />
+    <PackageReference Include="Metalama.Extensions.DependencyInjection" Version="2024.2.19" />
+    <PackageReference Include="Metalama.Framework" Version="2024.2.19" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
   </ItemGroup>
 

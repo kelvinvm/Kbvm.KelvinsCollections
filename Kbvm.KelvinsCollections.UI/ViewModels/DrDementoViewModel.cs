@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Kbvm.KelvinsCollections.Common.Aspects;
 using Kbvm.KelvinsCollections.Models.Models.DrDemento;
 using Kbvm.KelvinsCollections.Repository.Interfaces;
+using Kbvm.KelvinsCollections.UI.Messages;
 using Kbvm.KelvinsCollections.UI.UserControls;
 using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml;
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +31,12 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 			_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
 			_shows.CollectionChanged += _shows_CollectionChanged;
+
+
+			WeakReferenceMessenger.Default.Register<DeleteShowMessage>(this, (r, m) =>
+			{
+				DeleteShow(m);
+			});
 		}
 
 		private void _shows_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -77,6 +85,11 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 			foreach (var show in shows)
 				Shows.Add(show);
 			SelectedShow = Shows.First();
+		}
+
+		public void DeleteShow(DeleteShowMessage message)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
