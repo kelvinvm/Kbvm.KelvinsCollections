@@ -10,11 +10,11 @@ namespace Kbvm.KelvinsCollections.UI.Messages
 {
     public class DeleteShowMessage : RequestMessage<ShowViewModel>
     {
-		public ShowViewModel ShowViewModel { get; set; }
+		public int ShowOid { get; set; }
 
-		public DeleteShowMessage(ShowViewModel svm)
+		public DeleteShowMessage(int showOid)
 		{
-			ShowViewModel = svm;
+			ShowOid = showOid;
 		}
 	}
 }

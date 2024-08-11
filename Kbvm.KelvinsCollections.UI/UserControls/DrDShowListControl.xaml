@@ -21,7 +21,7 @@
 							<ColumnDefinition Width="35"/>
 						</Grid.ColumnDefinitions>
 						<TextBlock Grid.Column="0" Text="{x:Bind Title,Mode=OneWay}" FontWeight="SemiBold" />
-						<HyperlinkButton Grid.Column="1" Click="ConfirmDeleteDialog">
+						<HyperlinkButton Grid.Column="1" Click="ConfirmDeleteDialog" Tag="{x:Bind Oid}">
 							<HyperlinkButton.Content>
 								<!--<TextBlock>Hey</TextBlock>-->
 								<FontIcon FontSize="12" FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;"/>

@@ -39,9 +39,7 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 			return await CommandAsync(uow =>
 			{
 				var show = _mapper.Map<ShowDto, Show>(showDto, new Show(uow));
-
 				AddNewTracks(uow, show, showDto.Tracks);
-
 				return show;
 			});
 		}
@@ -54,15 +52,24 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 			await CommandAsync(async uow =>
 			{
 				Show show = await UpdateXpoObjectFromDtoAsync<ShowDto, Show>(uow, showDto);
-
 				AddNewTracks(uow, show, showDto.Tracks.Where(t => t.Oid <= 0).ToList());
-
 				await UpdateTracksAsync(uow, showDto.Tracks.Where(t => t.Oid > 0).ToList());
-
 				updatedShow = _mapper.Map<Show, ShowDto>(show);
 			});
 
 			return updatedShow;
+		}
+
+		[LogException]
+		public async Task DeleteShowAsync(int oid)
+		{
+			await CommandAsync(async uow =>
+			{
+				Show show = await uow.GetObjectByKeyAsync<Show>(oid);
+				if (show == null)
+					return;
+				show.Delete();
+			});
 		}
 
 		private void AddNewTracks(UnitOfWork uow, Show show, IList<TrackDto> tracks)
@@ -149,16 +156,7 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 		//          return result;
 		//      }
 
-		//      public async Task DeleteShowAsync(int oid)
-		//      {
-		//          using var uow = new UnitOfWork();
-		//          var showToDelete = await LoadShowByOidAsync(uow, oid);
-		//          if (showToDelete == null)
-		//              return;
 
-		//          showToDelete.Delete();
-		//          await uow.CommitChangesAsync();
-		//      }
 
 		//      public async Task<List<TrackDto>> GetTracksAsync(int showNumber)
 		//      {
