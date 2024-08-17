@@ -1,3 +1,4 @@
+using Kbvm.KelvinsCollections.Common.Aspects;
 using Kbvm.KelvinsCollections.UI.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

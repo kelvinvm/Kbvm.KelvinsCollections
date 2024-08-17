@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Kbvm.KelvinsCollections.Models.Models.DrDemento;
 using Kbvm.KelvinsCollections.UI.ViewModels;
+using Metalama.Framework.Fabrics;
 using System;
 using System.Linq;
 using Windows.UI.Accessibility;

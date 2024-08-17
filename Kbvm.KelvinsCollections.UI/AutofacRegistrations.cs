@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Kbvm.KelvinsCollections.UI
 {
+	[NoLog]
 	internal class AutofacRegistrations : Module
 	{
 		protected override void Load(ContainerBuilder builder)

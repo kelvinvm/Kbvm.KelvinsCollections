@@ -18,6 +18,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Kbvm.KelvinsCollections.UI.ViewModels
 {
@@ -32,6 +33,7 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 			_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
 			WeakReferenceMessenger.Default.Register<DeleteShowMessage>(this, async (r, m) => await DeleteShowAsync(m));
+			WeakReferenceMessenger.Default.Register<DeleteTrackMessage>(this, (r, m) => DeleteTrackAsync(m));
 		}
 
 		[ObservableProperty]
@@ -46,6 +48,7 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 		[ObservableProperty]
 		private TrackViewModel _selectedTrack;
 
+		[LogMethodTime]
 		partial void OnSelectedShowChanged(ShowViewModel oldValue, ShowViewModel newValue)
 		{
 			if (oldValue is not null)
@@ -60,6 +63,7 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 			SelectedTrack = SelectedShowTracks.FirstOrDefault();
 		}
 
+		[LogMethodTime]
 		partial void OnSelectedTrackChanged(TrackViewModel oldValue, TrackViewModel newValue)
 		{
 			if (oldValue is not null)
@@ -74,6 +78,7 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 			await _showTrackRepo.UpdateShowAsync(_mapper.Map<ShowViewModel, ShowDto>(SelectedShow));
 		}
 
+		[LogMethodTime]
 		[RelayCommand]
 		private async Task AddNewShow()
 		{
@@ -85,6 +90,31 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 			newShow.Oid = await _showTrackRepo.SaveNewShowAsync(_mapper.Map<ShowViewModel, ShowDto>(newShow));
 			Shows.Insert(0, newShow);
 			SelectedShow = newShow;
+		}
+
+		[LogMethodTime]
+		[RelayCommand]
+		private void AddNewTrack()
+		{
+			var newTrackNumber = SelectedShow.Tracks == null ? 1 : SelectedShow.Tracks.OrderBy(t => t.TrackNumber).Last().TrackNumber + 1;
+			var newTrack = new TrackViewModel()
+			{
+				Name = "New Track",
+				TrackNumber = newTrackNumber,
+				Artist = "New Artist"
+			};
+
+			if (SelectedShow.Tracks is null)
+				SelectedShow.Tracks = new ObservableCollection<TrackViewModel> { newTrack };
+			else
+				SelectedShow.Tracks.Add(newTrack);
+
+			if (SelectedShowTracks is null)
+				SelectedShowTracks = new ObservableCollection<TrackViewModel> { newTrack };
+			else
+				SelectedShowTracks.Add(newTrack);
+
+			SelectedTrack = SelectedShowTracks.Last();
 		}
 
 		public async Task LoadAsync()
@@ -106,6 +136,20 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 
 			if (SelectedShow.Oid == showToDelete.Oid)
 				SelectedShow = Shows.First();
+		}
+
+		private async Task DeleteTrackAsync(DeleteTrackMessage message)
+		{
+			var trackToDelete = SelectedShow.Tracks.FirstOrDefault(s => s.Oid == message.TrackOid);
+			if (trackToDelete == null)
+				return;
+
+			SelectedShowTracks.Remove(trackToDelete);
+			SelectedShow.Tracks.Remove(trackToDelete);
+
+			SelectedTrack = SelectedShowTracks.First();
+
+			await _showTrackRepo.UpdateShowAsync(_mapper.Map<ShowViewModel, ShowDto>(SelectedShow));
 		}
 	}
 }

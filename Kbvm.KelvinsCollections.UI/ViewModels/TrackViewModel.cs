@@ -20,6 +20,10 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 
 		public string NameNumber => $"{TrackNumber,2} {Name}";
 
+		partial void OnTrackNumberChanged(int oldValue, int newValue)
+		{
+		}
+
 		public TrackViewModel(TrackDto track)
 		{
 			TrackNumber = track.TrackNumber;
@@ -29,6 +33,11 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 
 		public TrackViewModel()
 		{
+		}
+
+		public override string ToString()
+		{
+			return $"{Name}";
 		}
 	}
 }

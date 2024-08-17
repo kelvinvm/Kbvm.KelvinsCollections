@@ -6,6 +6,8 @@ using Kbvm.KelvinsCollections.UI.Messages;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Kbvm.KelvinsCollections.UI.ViewModels
 {
@@ -24,7 +26,7 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 		[ObservableProperty]
 		private ObservableCollection<TrackViewModel> _tracks;
 
-		public string ShowDate => BroadcastDate.ToString("MMMM d, yyyy"); 
+		public string ShowDate => BroadcastDate.ToString("MMMM d, yyyy");
 
 		public ShowViewModel(ShowDto show)
 		{
@@ -39,6 +41,36 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 
 		public ShowViewModel()
 		{
+		}
+
+		//private ICommand _clickCommand;
+		//public ICommand ClickCommand
+		//{
+		//	get
+		//	{
+		//		return _clickCommand ?? (_clickCommand = new CommandHandler(() => AddTrackManual(), true));
+		//	}
+		//}
+
+
+
+		//private void AddTrackManual()
+		//{
+		//	throw new NotImplementedException();
+		//}
+
+
+
+		[RelayCommand]
+		public void AddTrack()
+		{
+			var newTrack = new TrackViewModel()
+			{
+				Name = "New Track",
+				TrackNumber = Tracks.LastOrDefault()?.TrackNumber + 1 ?? 1
+			};
+
+			Tracks.Add(newTrack);
 		}
 	}
 }
