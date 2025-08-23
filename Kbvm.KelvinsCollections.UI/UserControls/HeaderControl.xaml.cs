@@ -1,4 +1,3 @@
-using Kbvm.KelvinsCollections.Common.Aspects;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Linq;

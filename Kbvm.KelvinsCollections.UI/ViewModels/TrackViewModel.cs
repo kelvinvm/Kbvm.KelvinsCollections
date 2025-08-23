@@ -35,6 +35,10 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 		{
 		}
 
+		partial void OnNameChanging(string oldValue, string newValue)
+		{
+		}
+
 		public override string ToString()
 		{
 			return $"{Name}";

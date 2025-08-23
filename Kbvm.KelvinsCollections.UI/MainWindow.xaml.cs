@@ -1,5 +1,4 @@
 using CommunityToolkit.Mvvm.Messaging;
-using Kbvm.KelvinsCollections.Common.Aspects;
 using Kbvm.KelvinsCollections.UI.Messages;
 using Kbvm.KelvinsCollections.UI.ViewModels;
 using Microsoft.UI.Xaml;
@@ -10,7 +9,6 @@ using System.Linq;
 
 namespace Kbvm.KelvinsCollections.UI
 {
-	[NoLog]
 	public sealed partial class MainWindow : Window
 	{
 		public DrDementoViewModel ViewModel { get; set; }

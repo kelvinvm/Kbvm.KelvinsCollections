@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using DevExpress.Xpo;
 using Kbvm.DrDemento.Repository;
-using Kbvm.KelvinsCollections.Common.Aspects;
 using Kbvm.KelvinsCollections.Models.Interfaces;
 using Kbvm.KelvinsCollections.Models.Models.DrDemento;
 using Kbvm.KelvinsCollections.Repository.Exceptions;
+using Kbvm.KelvinsCollections.Repository.Extensions;
 using Kbvm.KelvinsCollections.Repository.Interfaces;
 using System;
 using System.Linq;
-using System.Security.Cryptography;
-using static DevExpress.Data.Helpers.ExpressiveSortInfo;
 
 namespace Kbvm.KelvinsCollections.Repository.DrDemento
 {
@@ -23,7 +21,6 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 			_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 		}
 
-		[LogException]
 		public async Task<IEnumerable<ShowDto>> GetAllShowsAsync()
 		{
 			return await QueryAsync(async uow =>
@@ -33,7 +30,6 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 			});
 		}
 
-		[LogException]
 		public async Task<int> SaveNewShowAsync(ShowDto showDto)
 		{
 			return await CommandAsync(uow =>
@@ -44,14 +40,15 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 			});
 		}
 
-		[LogException]
 		public async Task<ShowDto> UpdateShowAsync(ShowDto showDto)
 		{
 			ShowDto updatedShow = null!;
 
 			await CommandAsync(async uow =>
 			{
-				Show show = await UpdateXpoObjectFromDtoAsync<ShowDto, Show>(uow, showDto);
+				Show show = await showDto.UpdateXpoObjectFromDtoAsync<ShowDto, Show>(uow, _mapper);
+
+				await RemoveDeletedTracksAsync(uow, showDto, show);
 				AddNewTracks(uow, show, showDto.Tracks.Where(t => t.Oid <= 0).ToList());
 				await UpdateTracksAsync(uow, showDto.Tracks.Where(t => t.Oid > 0).ToList());
 				updatedShow = _mapper.Map<Show, ShowDto>(show);
@@ -60,7 +57,6 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 			return updatedShow;
 		}
 
-		[LogException]
 		public async Task DeleteShowAsync(int oid)
 		{
 			await CommandAsync(async uow =>
@@ -72,6 +68,21 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 			});
 		}
 
+		private async Task RemoveDeletedTracksAsync(UnitOfWork uow, ShowDto showDto, Show showFromDb)
+		{
+			List<int> deletedTrackIds = showFromDb.Tracks
+				.Where(t => !showDto.Tracks.Any(st => st.Oid == t.Oid))
+				.Select(t => t.Oid)
+				.ToList();
+
+			foreach (int deletedTrackId in deletedTrackIds)
+			{
+				Track track = showFromDb.Tracks.First(t => t.Oid == deletedTrackId);
+				showFromDb.Tracks.Remove(showFromDb.Tracks.First(t => t.Oid == deletedTrackId));
+				await uow.DeleteAsync(track);
+			}
+		}
+
 		private void AddNewTracks(UnitOfWork uow, Show show, IList<TrackDto> tracks)
 		{
 			foreach (TrackDto trackDto in tracks)
@@ -81,19 +92,18 @@ namespace Kbvm.KelvinsCollections.Repository.DrDemento
 		private async Task UpdateTracksAsync(UnitOfWork uow, List<TrackDto> tracks)
 		{
 			foreach (TrackDto trackDto in tracks)
-				await UpdateXpoObjectFromDtoAsync<TrackDto, Track>(uow, trackDto);
+				await trackDto.UpdateXpoObjectFromDtoAsync<TrackDto, Track>(uow, _mapper);
 		}
 
-		[NoLog]
-		private async Task<TXpo> UpdateXpoObjectFromDtoAsync<TDto, TXpo>(UnitOfWork uow, TDto dto) 
-			where TXpo : XPObject
-			where TDto : IHaveKey
-		{
-			var xpObject = await uow.GetObjectByKeyAsync<TXpo>(dto.Oid);
-			if (xpObject == null)
-				throw new XpoObjectCouldNotBeLoadedException(typeof(TXpo), dto.Oid);
-			return _mapper.Map(dto, xpObject);
-		}
+		//private async Task<TXpo> UpdateXpoObjectFromDtoAsync<TDto, TXpo>(UnitOfWork uow, TDto dto) 
+		//	where TXpo : XPObject
+		//	where TDto : IHaveKey
+		//{
+		//	var xpObject = await uow.GetObjectByKeyAsync<TXpo>(dto.Oid);
+		//	if (xpObject == null)
+		//		throw new XpoObjectCouldNotBeLoadedException(typeof(TXpo), dto.Oid);
+		//	return _mapper.Map(dto, xpObject);
+		//}
 
 		//public async Task<int> SaveNewShowAsync(ShowDto showDto)
 		//      {

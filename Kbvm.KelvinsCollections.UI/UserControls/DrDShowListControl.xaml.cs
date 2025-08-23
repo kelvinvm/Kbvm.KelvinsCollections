@@ -1,12 +1,10 @@
 using CommunityToolkit.Mvvm.Messaging;
-using Kbvm.KelvinsCollections.Common.Aspects;
 using Kbvm.KelvinsCollections.UI.Messages;
 using Kbvm.KelvinsCollections.UI.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -57,11 +55,11 @@ namespace Kbvm.KelvinsCollections.UI.UserControls
 				DefaultButton = ContentDialogButton.Secondary
 			};
 
-			int trackOid = (int)((ButtonBase)sender).Tag;
+			int showOid = (int)((ButtonBase)sender).Tag;
 
 			var result = await dlg.ShowAsync();
 			if (result == ContentDialogResult.Primary)
-				WeakReferenceMessenger.Default.Send(new DeleteTrackMessage(trackOid));
+				WeakReferenceMessenger.Default.Send(new DeleteShowMessage(showOid));
 		}
 	}
 }

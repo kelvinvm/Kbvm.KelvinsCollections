@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
 using Kbvm.KelvinsCollections.Models.Models.DrDemento;
 using Kbvm.KelvinsCollections.UI.ViewModels;
-using Metalama.Framework.Fabrics;
 using System;
 using System.Linq;
-using Windows.UI.Accessibility;
 
 namespace Kbvm.KelvinsCollections.UI
 {
-	public class AutomapperProfile : Profile
+	public class AutoMapperProfile : Profile
 	{
-		public AutomapperProfile()
+		public AutoMapperProfile()
 		{
 			CreateMap<Show, ShowDto>();
 			CreateMap<ShowDto, Show>()
@@ -21,7 +19,6 @@ namespace Kbvm.KelvinsCollections.UI
 			CreateMap<TrackDto, Track>()
 				.DisableCtorValidation();
 				
-
 			CreateMap<ShowDto, ShowViewModel>()
 				.ForMember(d => d.BroadcastDate, opt => opt.MapFrom(src => DateTime.SpecifyKind(src.BroadcastDate, DateTimeKind.Utc)));
 			CreateMap<ShowViewModel, ShowDto>()

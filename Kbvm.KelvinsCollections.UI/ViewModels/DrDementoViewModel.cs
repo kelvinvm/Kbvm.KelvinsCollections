@@ -1,24 +1,15 @@
 ﻿using AutoMapper;
-using ColorCode.Common;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Kbvm.KelvinsCollections.Common.Aspects;
 using Kbvm.KelvinsCollections.Models.Models.DrDemento;
 using Kbvm.KelvinsCollections.Repository.Interfaces;
 using Kbvm.KelvinsCollections.UI.Messages;
-using Kbvm.KelvinsCollections.UI.UserControls;
-using Microsoft.UI.Composition;
-using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace Kbvm.KelvinsCollections.UI.ViewModels
 {
@@ -33,7 +24,7 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 			_mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
 			WeakReferenceMessenger.Default.Register<DeleteShowMessage>(this, async (r, m) => await DeleteShowAsync(m));
-			WeakReferenceMessenger.Default.Register<DeleteTrackMessage>(this, (r, m) => DeleteTrackAsync(m));
+			WeakReferenceMessenger.Default.Register<DeleteTrackMessage>(this, async (r, m) => await DeleteTrackAsync(m));
 		}
 
 		[ObservableProperty]
@@ -48,7 +39,6 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 		[ObservableProperty]
 		private TrackViewModel _selectedTrack;
 
-		[LogMethodTime]
 		partial void OnSelectedShowChanged(ShowViewModel oldValue, ShowViewModel newValue)
 		{
 			if (oldValue is not null)
@@ -63,22 +53,21 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 			SelectedTrack = SelectedShowTracks.FirstOrDefault();
 		}
 
-		[LogMethodTime]
 		partial void OnSelectedTrackChanged(TrackViewModel oldValue, TrackViewModel newValue)
 		{
 			if (oldValue is not null)
 				oldValue.PropertyChanged -= AutoSaveShow; 
 			if (newValue is not null)
 				newValue.PropertyChanged += AutoSaveShow;
+
+
 		}
 
-		[LogMethodTime]
 		private async void AutoSaveShow(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			await _showTrackRepo.UpdateShowAsync(_mapper.Map<ShowViewModel, ShowDto>(SelectedShow));
 		}
 
-		[LogMethodTime]
 		[RelayCommand]
 		private async Task AddNewShow()
 		{
@@ -92,7 +81,6 @@ namespace Kbvm.KelvinsCollections.UI.ViewModels
 			SelectedShow = newShow;
 		}
 
-		[LogMethodTime]
 		[RelayCommand]
 		private void AddNewTrack()
 		{

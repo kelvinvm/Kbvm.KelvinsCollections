@@ -1,16 +1,18 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using AutoMapper.Contrib.Autofac.DependencyInjection;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
-using Kbvm.KelvinsCollections.Common.Aspects;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using ZLogger;
 
 namespace Kbvm.KelvinsCollections.UI
@@ -24,7 +26,8 @@ namespace Kbvm.KelvinsCollections.UI
 			InitializeComponent();
 
 			var connectionStr = MSSqlConnectionProvider.GetConnectionString("WIN11-DEV", "DrDemento");
-			XpoDefault.DataLayer = XpoDefault.GetDataLayer(connectionStr, DevExpress.Xpo.DB.AutoCreateOption.SchemaOnly);
+			connectionStr = connectionStr + ";TrustServerCertificate=True";
+            XpoDefault.DataLayer = XpoDefault.GetDataLayer(connectionStr, DevExpress.Xpo.DB.AutoCreateOption.SchemaOnly);
 			XpoDefault.Session = null;
 
 			Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
@@ -33,7 +36,7 @@ namespace Kbvm.KelvinsCollections.UI
 				.ConfigureContainer<ContainerBuilder>((container) =>
 				{
 					container.RegisterModule<AutofacRegistrations>();
-					container.RegisterAutoMapper(typeof(App).Assembly);
+					container.RegisterAutoMapper(Assembly.GetExecutingAssembly());
 				})
 				.ConfigureLogging((ctx, logBldr) =>
 				{

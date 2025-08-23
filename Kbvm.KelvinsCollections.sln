@@ -5,8 +5,6 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbvm.KelvinsCollections.UI", "Kbvm.KelvinsCollections.UI\Kbvm.KelvinsCollections.UI.csproj", "{7B46A923-F62A-43EC-BDF2-9C2FDC072EAA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbvm.KelvinsCollections.Common", "Kbvm.KelvinsCollections.Common\Kbvm.KelvinsCollections.Common.csproj", "{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbvm.KelvinsCollections.Models", "Kbvm.KelvinsCollections.Models\Kbvm.KelvinsCollections.Models.csproj", "{1DB54699-C6CA-4D50-8B92-0A2FECEE4E42}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbvm.KelvinsCollections.Repository", "Kbvm.KelvinsCollections.Repository\Kbvm.KelvinsCollections.Repository.csproj", "{D10EF0E7-56EE-4C7A-80B2-892AED16BB6C}"
@@ -63,30 +61,6 @@ Global
 		{7B46A923-F62A-43EC-BDF2-9C2FDC072EAA}.Release|x86.ActiveCfg = Release|x86
 		{7B46A923-F62A-43EC-BDF2-9C2FDC072EAA}.Release|x86.Build.0 = Release|x86
 		{7B46A923-F62A-43EC-BDF2-9C2FDC072EAA}.Release|x86.Deploy.0 = Release|x86
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Debug|x64.Build.0 = Debug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Debug|x86.Build.0 = Debug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.LamaDebug|Any CPU.ActiveCfg = LamaDebug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.LamaDebug|Any CPU.Build.0 = LamaDebug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.LamaDebug|ARM64.ActiveCfg = LamaDebug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.LamaDebug|ARM64.Build.0 = LamaDebug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.LamaDebug|x64.ActiveCfg = LamaDebug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.LamaDebug|x64.Build.0 = LamaDebug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.LamaDebug|x86.ActiveCfg = LamaDebug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.LamaDebug|x86.Build.0 = LamaDebug|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Release|ARM64.ActiveCfg = Release|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Release|ARM64.Build.0 = Release|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Release|x64.ActiveCfg = Release|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Release|x64.Build.0 = Release|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Release|x86.ActiveCfg = Release|Any CPU
-		{573D0F32-D0EF-4BA0-86FC-2FC6954E8BE2}.Release|x86.Build.0 = Release|Any CPU
 		{1DB54699-C6CA-4D50-8B92-0A2FECEE4E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1DB54699-C6CA-4D50-8B92-0A2FECEE4E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DB54699-C6CA-4D50-8B92-0A2FECEE4E42}.Debug|ARM64.ActiveCfg = Debug|Any CPU

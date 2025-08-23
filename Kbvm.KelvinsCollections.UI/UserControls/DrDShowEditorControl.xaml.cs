@@ -1,9 +1,7 @@
-using Kbvm.KelvinsCollections.Common.Aspects;
 using Kbvm.KelvinsCollections.UI.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Kbvm.KelvinsCollections.UI.UserControls

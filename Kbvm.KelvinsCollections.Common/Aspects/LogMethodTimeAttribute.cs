@@ -1,11 +1,4 @@
-﻿using Metalama.Extensions.DependencyInjection;
-using Metalama.Framework.Advising;
-using Metalama.Framework.Aspects;
-using Metalama.Framework.Code;
-using Metalama.Framework.Code.SyntaxBuilders;
-using Metalama.Framework.CodeFixes;
-using Metalama.Framework.Eligibility;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 using System.Linq;
